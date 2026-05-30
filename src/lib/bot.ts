@@ -1,15 +1,17 @@
 import { Chat } from "chat";
-import { createDiscordAdapter } from "@chat-adapter/discord";
-import { createRedisState } from "@chat-adapter/state-redis";
+import { createTelegramAdapter } from "@chat-adapter/telegram";
+import { createMemoryState } from "@chat-adapter/state-memory";
+
+const telegram = createTelegramAdapter({
+  mode: "polling",
+});
 
 export const bot = new Chat({
-  userName: "bot1510288159739744389",
-  adapters: {
-    discord: createDiscordAdapter(),
-  },
-  state: createRedisState(),
+  userName: "nurimobot",
+  adapters: { telegram },
+  state: createMemoryState(),
 });
 
 bot.onNewMention(async (thread, message) => {
-  await thread.post("Hello from Discord!");
+  await thread.post("Hello from Telegram!");
 });

@@ -4,19 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build --webpack",
+    "build": "next build",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write"
   },
   "dependencies": {
-    "@chat-adapter/discord": "^4.29.0",
-    "@chat-adapter/gchat": "^4.29.0",
-    "@chat-adapter/state-redis": "^4.29.0",
+    "@chat-adapter/state-memory": "^4.29.0",
+    "@chat-adapter/telegram": "^4.29.0",
     "next": "16.2.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "zlib-sync": "^0.1.10"
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.0",
