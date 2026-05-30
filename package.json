@@ -12,6 +12,7 @@
   "dependencies": {
     "@chat-adapter/discord": "^4.29.0",
     "@chat-adapter/gchat": "^4.29.0",
+    "@chat-adapter/state-redis": "^4.29.0",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4"
