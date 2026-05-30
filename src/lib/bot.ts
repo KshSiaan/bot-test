@@ -33,11 +33,7 @@ if (typeof window === "undefined") {
       await adapter.startPolling();
       console.log("[Telegram] ✅ Bot polling started successfully!");
     } catch (error) {
-      console.error("[Telegram] ❌ Failed to start polling:", {
-        message: error?.message,
-        code: error?.code,
-        stack: error?.stack,
-      });
+      console.error("[Telegram] ❌ Failed to start polling:");
     }
   }, 1000);
 }
