@@ -1,23 +1,10 @@
 import { bot } from "@/lib/bot";
 import { NextResponse } from "next/server";
 
-let pollingStarted = false;
-
 export async function GET() {
-  if (!pollingStarted) {
-    pollingStarted = true;
-    // Start polling in the background
-    bot
-      .getAdapter("telegram")
-      .startPolling()
-      .catch((error) => {
-        console.error("[Telegram] Polling error:", error);
-      });
-  }
-
   return NextResponse.json({
     status: "ok",
-    message: "Telegram bot polling started",
+    message: "Telegram bot is polling",
     timestamp: new Date().toISOString(),
   });
 }
