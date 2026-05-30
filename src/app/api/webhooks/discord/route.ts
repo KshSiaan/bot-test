@@ -3,7 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    return await bot.webhooks.discord(req);
+    // Clone the request to get raw body bytes
+    const clonedReq = req.clone();
+    return await bot.webhooks.discord(clonedReq);
   } catch (error) {
     console.error("Discord webhook error:", error);
     return NextResponse.json(
