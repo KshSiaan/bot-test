@@ -3,13 +3,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
   try {
-    // Clone the request to get raw body bytes
+    console.log("[Discord Route] Received webhook request");
     const clonedReq = req.clone();
-    return await bot.webhooks.discord(clonedReq);
+    const response = await bot.webhooks.discord(clonedReq);
+    console.log("[Discord Route] Webhook response status:", response.status);
+    return response;
   } catch (error) {
-    console.error("Discord webhook error:", error);
+    console.error("[Discord Route] Webhook error:", error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: "Internal server error", details: String(error) },
       { status: 500 },
     );
   }
@@ -19,5 +21,6 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({
     status: "ok",
     message: "Discord webhook endpoint",
+    timestamp: new Date().toISOString(),
   });
 }
