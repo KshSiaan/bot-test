@@ -7,9 +7,12 @@ export async function GET() {
   if (!pollingStarted) {
     pollingStarted = true;
     // Start polling in the background
-    bot.listen().catch((error) => {
-      console.error("[Telegram] Polling error:", error);
-    });
+    bot
+      .getAdapter("telegram")
+      .startPolling()
+      .catch((error) => {
+        console.error("[Telegram] Polling error:", error);
+      });
   }
 
   return NextResponse.json({
