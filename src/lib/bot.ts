@@ -12,28 +12,32 @@ export const bot = new Chat({
   state: createMemoryState(),
 });
 
-// Listen for any message (not just mentions)
-bot.onNewMessage(/.*/, async (thread, message) => {
-  console.log("[Telegram] Received message:", message.text);
-  await thread.post("Hello from Telegram!");
-});
-
 // Also listen for mentions
 bot.onNewMention(async (thread, message) => {
   console.log("[Telegram] Received mention:", message.text);
-  await thread.post("Hello from Telegram!");
+  await thread.post(`Hello! You mentioned me with: "${message.text}"`);
 });
 
 // Auto-start polling when module loads (only in server environment)
 if (typeof window === "undefined") {
-  (async () => {
+  setTimeout(async () => {
     try {
+      console.log("[Telegram] Initializing bot...");
       await bot.initialize();
+      console.log("[Telegram] Bot initialized");
+
       const adapter = bot.getAdapter("telegram");
+      console.log("[Telegram] Got adapter:", adapter ? "OK" : "FAILED");
+
+      console.log("[Telegram] Starting polling...");
       await adapter.startPolling();
-      console.log("[Telegram] Bot polling started automatically");
+      console.log("[Telegram] ✅ Bot polling started successfully!");
     } catch (error) {
-      console.error("[Telegram] Failed to start polling:", error);
+      console.error("[Telegram] ❌ Failed to start polling:", {
+        message: error?.message,
+        code: error?.code,
+        stack: error?.stack,
+      });
     }
-  })();
+  }, 1000);
 }
